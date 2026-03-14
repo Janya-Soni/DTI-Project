@@ -44,11 +44,14 @@ The dashboard uses Chart.js to visualize student feedback data.
 
 Project Structure
 Silent-Struggles
-│
-├── login.html
-├── student.html
-├── teacher.html
-└── README.md
+
+── login.html
+
+── student.html
+
+── teacher.html
+
+── README.md
 
 login.html – login page where users choose student or teacher role
 
