@@ -59,24 +59,14 @@ student.html – student portal for feedback and doubts
 
 teacher.html – teacher dashboard showing analytics and doubts
 
-Technologies Used
-
-HTML
-
-CSS
-
-JavaScript
-
-Chart.js
-
-Browser LocalStorage
+Technologies Used-HTML, CSS, JavaScript, Browser LocalStorage
 
 How to Run the Project
 Method 1 — Run Directly in Browser (Recommended)
 
 Download or clone the repository.
 
-git clone https://github.com/your-username/silent-struggles.git
+git clone https://github.com/Janya-Soni/DTI-Project.git
 
 Open the project folder.
 
