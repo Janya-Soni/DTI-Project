@@ -1,0 +1,94 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Silent Struggles Login</title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:linear-gradient(135deg,#4facfe,#00f2fe);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.box{
+background:white;
+padding:35px;
+border-radius:12px;
+width:350px;
+text-align:center;
+box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+
+input,select{
+width:90%;
+padding:10px;
+margin:10px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+button{
+background:#3498db;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:6px;
+cursor:pointer;
+}
+
+</style>
+
+<script>
+
+function login(){
+
+let role=document.getElementById("role").value;
+
+if(role=="student"){
+window.location="student.html";
+}
+
+else{
+window.location="teacher.html";
+}
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Silent Struggles</h1>
+
+<p>Every doubt is a step toward understanding</p>
+
+<input type="text" placeholder="School Email">
+
+<input type="password" placeholder="Password">
+
+<select id="role">
+
+<option value="student">Student</option>
+<option value="teacher">Teacher</option>
+
+</select>
+
+<br><br>
+
+<button onclick="login()">Login</button>
+
+</div>
+
+</body>
+</html>
+```

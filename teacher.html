@@ -1,0 +1,236 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Teacher Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:linear-gradient(135deg,#43cea2,#185a9d);
+}
+
+.navbar{
+background:#2c3e50;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 30px;
+}
+
+.navbar button{
+background:#e74c3c;
+border:none;
+color:white;
+padding:8px 14px;
+border-radius:5px;
+cursor:pointer;
+}
+
+.container{
+width:900px;
+margin:30px auto;
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.cards{
+display:flex;
+gap:20px;
+margin-bottom:20px;
+}
+
+.card{
+flex:1;
+background:#ecf0f1;
+padding:20px;
+border-radius:8px;
+text-align:center;
+box-shadow:0 3px 8px rgba(0,0,0,0.2);
+}
+
+.doubt{
+background:#f4f6f9;
+padding:10px;
+margin-top:10px;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+<h2>Silent Struggles Dashboard</h2>
+<button onclick="logout()">Logout</button>
+</div>
+
+<div id="notification"
+style="background:#ff7675;color:white;padding:10px;text-align:center;display:none;">
+⚠ New student doubt received
+</div>
+
+<div class="container">
+
+<h3>Dashboard Overview</h3>
+
+<div class="cards">
+
+<div class="card">
+<h4>Total Doubts</h4>
+<p id="totalDoubts"></p>
+</div>
+
+<div class="card">
+<h4>Understood</h4>
+<p id="uCount"></p>
+</div>
+
+<div class="card">
+<h4>Partial</h4>
+<p id="pCount"></p>
+</div>
+
+<div class="card">
+<h4>Not Understood</h4>
+<p id="nCount"></p>
+</div>
+
+</div>
+
+<h3>Understanding Graph</h3>
+<canvas id="chart1"></canvas>
+
+<h3>Doubt Summary</h3>
+<canvas id="chart2"></canvas>
+
+<h3>Student Doubts</h3>
+<div id="doubtList"></div>
+
+<br>
+
+<button onclick="clearAll()"
+style="background:#3498db;color:white;padding:10px;border:none;border-radius:6px;">
+Clear All Doubts
+</button>
+
+</div>
+
+<script>
+
+let chart1;
+let chart2;
+
+function loadDashboard(){
+
+let u=parseInt(localStorage.getItem("understood"))||0;
+let p=parseInt(localStorage.getItem("partial"))||0;
+let n=parseInt(localStorage.getItem("not"))||0;
+
+let doubts=JSON.parse(localStorage.getItem("doubts"))||[];
+
+document.getElementById("uCount").innerText=u;
+document.getElementById("pCount").innerText=p;
+document.getElementById("nCount").innerText=n;
+document.getElementById("totalDoubts").innerText=doubts.length;
+
+if(localStorage.getItem("newDoubt")=="yes"){
+document.getElementById("notification").style.display="block";
+localStorage.setItem("newDoubt","no");
+}
+
+if(chart1) chart1.destroy();
+if(chart2) chart2.destroy();
+
+chart1 = new Chart(document.getElementById("chart1"),{
+type:"bar",
+data:{
+labels:["Understood","Partial","Not Understood"],
+datasets:[{
+data:[u,p,n],
+backgroundColor:["green","orange","red"]
+}]
+}
+});
+
+chart2 = new Chart(document.getElementById("chart2"),{
+type:"pie",
+data:{
+labels:["Remaining Doubts","Solved Doubts"],
+datasets:[{
+data:[doubts.length,0],
+backgroundColor:["red","green"]
+}]
+}
+});
+
+let list=document.getElementById("doubtList");
+list.innerHTML="";
+
+doubts.forEach((d,index)=>{
+
+list.innerHTML+=`
+<div class="doubt">
+
+${d}
+
+<br><br>
+
+<button onclick="solveDoubt(${index})"
+style="background:#27ae60;color:white;border:none;padding:6px 10px;border-radius:5px;">
+Mark Solved
+</button>
+
+</div>
+`;
+
+});
+
+}
+
+function solveDoubt(index){
+
+let doubts=JSON.parse(localStorage.getItem("doubts"))||[];
+
+doubts.splice(index,1);
+
+localStorage.setItem("doubts",JSON.stringify(doubts));
+
+alert("Doubt solved");
+
+loadDashboard();
+
+}
+
+function clearAll(){
+
+localStorage.removeItem("doubts");
+
+alert("All doubts cleared");
+
+loadDashboard();
+
+}
+
+function logout(){
+window.location="login.html";
+}
+
+loadDashboard();
+
+setInterval(loadDashboard,2000);
+
+</script>
+
+</body>
+</html>
+```
